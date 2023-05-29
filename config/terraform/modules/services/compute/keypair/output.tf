@@ -1,4 +1,4 @@
-output "keyid" {
-  value = aws_key_pair.kp.id
+output "keyname" {
+  value = aws_key_pair.kp.key_name
   sensitive = false
 }

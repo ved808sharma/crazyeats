@@ -4,6 +4,8 @@ resource "aws_instance" "ec2" {
     instance_type = var.instance_type
     associate_public_ip_address = var.aasociate_public_ip
     security_groups = var.sg
+    key_name = var.key_name
+    
     tags = {
       Name: var.instance_name
     }

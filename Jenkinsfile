@@ -24,5 +24,10 @@ pipeline {
                 '''
             }
         }
+        stage('playbook') {
+            steps {
+                ansiblePlaybook(credentialsId: 'agentsshkey', inventory: 'config/ansible/hosts', playbook: 'config/ansible/crazyeats-playbook.yml')
+            }
+        }
     }
 }
