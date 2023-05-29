@@ -8,8 +8,6 @@ terraform {
 
 provider "aws" {
   region = "ap-south-1"
-  access_key = "AKIAT4EDDZXUGSKWEO77"
-  secret_key = "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"
 }
 
 module "crazyeats-vpc" {
