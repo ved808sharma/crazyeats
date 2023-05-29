@@ -19,7 +19,7 @@ pipeline {
         stage('build infra') {
             steps {
                 sh '''
-                    terraform init
+                    terraform -chdir=config/terraform/global init
                     terraform -chdir=config/terraform/global apply --auto-approve
                 '''
             }
