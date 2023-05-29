@@ -1,0 +1,43 @@
+---
+- name: crazyeats hosting plays
+  hosts: all
+  vars:
+    serverName: www.crazyeats.com
+    docRoot: crazyeats
+  tasks: 
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      become: yes
+    - name: Copy website to /var/www
+      copy:
+        src: public_html/crazyeats
+        dest: "/var/www/"
+        mode: '0655'
+      become: yes
+    - name: perform site configuration
+      template:
+        src:  templates/default.conf.j2
+        dest: "/etc/apache2/sites-available/{{docRoot}}.conf"
+        mode: '0644'
+      become: yes
+    - name: enable site config
+      shell: "a2ensite {{docRoot}}"
+      become: yes
+      notify:
+        - reloadApache2
+        - restartApache2
+  handlers:
+    - name: reloadApache2
+      service:
+        name: apache2
+        state: reloaded
+      become: yes
+    - name: restartApache2
+      service:
+        name: apache2
+        state: restarted
+      become: yes
+...
